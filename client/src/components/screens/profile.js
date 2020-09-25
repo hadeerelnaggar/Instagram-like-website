@@ -3,16 +3,22 @@ import {userContext} from '../../App'
 
 const Profile = ()=>{
     const [mypics,setPics] = useState([])
-    const {state,dispatch} = useContext(userContext)
+    const { state, dispatch } = useContext(userContext)
     useEffect(()=>{
+        let unmounted = true
         fetch('/myposts',{
             headers:{
                 "Authorization":localStorage.getItem("jwt")
             }
-        }).then(res=>res.json())
+        }).then(res=>{
+            if(unmounted){
+            res.json()
         .then(result=>{
             setPics(result.myposts)
         })
+    }
+    })
+    return () => unmounted = false
     },[])
     return(
         <div style={{maxWidth:"600px",margin:"0px auto"}}>
@@ -36,8 +42,8 @@ const Profile = ()=>{
                         width:"109%"
                     }}>
                         <h6>{mypics.length} posts</h6>
-                        <h6>120 followers</h6>
-                        <h6>550 followings</h6>
+                        <h6>{state?state.followers.length:"0"} followers</h6>
+                        <h6>{state?state.followings.length:"0"} followings</h6>
                     </div>
 
                 </div>

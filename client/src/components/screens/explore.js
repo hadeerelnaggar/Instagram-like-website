@@ -4,14 +4,14 @@ import M from 'materialize-css'
 import { useHistory } from 'react-router-dom'
 
 
-const Home = () => {
+const Followingsposts = () => {
     const { state, dispatch } = useContext(userContext)
     const history = useHistory()
     const [data, setData] = useState([])
     useEffect(() => {
         let unmounted = true
         console.log(state)
-        fetch('/getfollowingsposts', {
+        fetch('/allposts', {
             headers: {
                 "Authorization": localStorage.getItem("jwt")
             }
@@ -238,4 +238,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Followingsposts

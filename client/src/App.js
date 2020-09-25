@@ -5,9 +5,10 @@ import Login from './components/screens/login'
 import Signup from './components/screens/signup'
 import Profile from './components/screens/profile'
 import CreatePost from './components/screens/createpost'
+import Explore from './components/screens/explore'
 import UserProfile from './components/screens/Userprofile'
 import './App.css'
-import {BrowserRouter, Route, Switch,useHistory} from 'react-router-dom'
+import {BrowserRouter, Route, Switch,useHistory,history} from 'react-router-dom'
 import {reducer,initialState} from './reducers/userReducer'
 
 export const userContext = createContext()
@@ -25,7 +26,7 @@ const Routing = () => {
   },[])
   return (
     <Switch>
-      <Route exact path="/">
+      <Route exact path="/" history={history}>
         <Home />
       </Route>
       <Route path="/login">
@@ -42,6 +43,9 @@ const Routing = () => {
       </Route>
       <Route path="/profile/:userid">
         <UserProfile />
+      </Route>
+      <Route path="/explore">
+        <Explore />
       </Route>
     </Switch>
     )
